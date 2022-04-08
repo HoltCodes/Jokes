@@ -21,8 +21,26 @@ const createNewJoke = (res, req) => {
     .catch(err => console.log(err));
 };
 
+const updateJoke = (res, req) => {
+  Joke.findOneAndUpdate({_id: req.params._id }, req.body, {
+    new: true,
+    runValidators: true,
+  })
+    .then((updateJoke) => res.json(updateJoke))
+    .catch(err => console.log(err));
+};
+
+
+const deleteJoke = (res, req) => {
+  Joke.deleteOne({_id: req.params._id })
+    .then((result) => res.json(result))
+    .catch((err) => console.log(err));
+};
+
 module.exports = {
   getALLJokes,
   getJokeById,
   createNewJoke,
+  updateJoke,
+  deleteJoke,
 };
